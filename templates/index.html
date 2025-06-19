@@ -1,0 +1,217 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sentiment Analyzer</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #e0eafc, #cfdef3);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      justify-content: center;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 30px;
+      color: #333;
+      text-shadow: 1px 1px 2px #aaa;
+    }
+
+    textarea {
+      width: 60%;
+      height: 150px;
+      font-size: 1rem;
+      padding: 15px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      resize: none;
+      transition: 0.3s ease;
+    }
+
+    textarea:focus {
+      border-color: #007BFF;
+      outline: none;
+      box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 30px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 25px;
+      background-color: #28a745;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    #result {
+      margin-top: 30px;
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #222;
+      padding: 10px 20px;
+      border-radius: 8px;
+      background-color: #ffffffcc;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Sentiment Analyzer</h1>
+  <textarea id="inputText" placeholder="Type your message here..."></textarea><br>
+  <button onclick="analyzeSentiment()">Show Sentiment Result</button>
+  <div id="result"></div>
+
+  <script src="{{ url_for('static', filename='mywebscript.js') }}"></script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sentiment Analyzer</title>
+
+  <!-- Vanta Background + Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+    }
+
+    #bg {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      top: 0;
+      left: 0;
+    }
+
+    .content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+      animation: fadeIn 1.2s ease-in-out;
+      width: 90%;
+      max-width: 600px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translate(-50%, -60%); }
+      to   { opacity: 1; transform: translate(-50%, -50%); }
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #ffffff;
+      margin-bottom: 25px;
+      text-shadow: 1px 1px 5px #000;
+    }
+
+    textarea {
+      width: 90%;
+      height: 130px;
+      font-size: 1rem;
+      padding: 15px;
+      border: none;
+      border-radius: 12px;
+      resize: none;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 12px 30px;
+      font-size: 1rem;
+      background-color: #00bcd4;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0097a7;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      padding: 12px 20px;
+      border-radius: 12px;
+      display: inline-block;
+      background-color: #fff;
+      color: #333;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .positive {
+      background-color: #c8e6c9;
+      color: #256029;
+    }
+
+    .negative {
+      background-color: #ffcdd2;
+      color: #b71c1c;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="bg"></div>
+
+  <div class="content">
+    <h1>🌈 Sentiment Analyzer</h1>
+    <textarea id="inputText" placeholder="Type your message here..."></textarea><br>
+    <button onclick="analyzeSentiment()">Show Sentiment Result</button>
+    <div id="result"></div>
+  </div>
+
+  <script src="{{ url_for('static', filename='mywebscript.js') }}"></script>
+
+  <script>
+    VANTA.GLOBE({
+      el: "#bg",
+      mouseControls: true,
+      touchControls: true,
+      scale: 1.2,
+      scaleMobile: 1.0,
+      color: 0x00bcd4,
+      backgroundColor: 0x111111
+    });
+  </script>
+</body>
+</html>
+
