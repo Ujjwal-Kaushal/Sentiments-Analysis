@@ -1,3 +1,4 @@
 Flask==2.3.3
 textblob==0.17.1
 flask-cors==3.0.10
+transformers==4.40.1
