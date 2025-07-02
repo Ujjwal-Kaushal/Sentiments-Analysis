@@ -1,5 +1,5 @@
 # # Sentiment Analyzer 🧠💬
-
+[![Netlify Status](https://api.netlify.com/api/v1/badges/153e077e-d91e-411e-ad8f-ab92098f3e52/deploy-status)](https://app.netlify.com/sites/sentimentanalyser/deploys)
 A simple and interactive web application that analyzes the **sentiment of input text** using a pre-trained NLP model from Hugging Face's `transformers` library. Built with **Flask**, **HTML/CSS**, and **JavaScript**, the project features a sleek UI with animated backgrounds and real-time result display.
 
 ---
